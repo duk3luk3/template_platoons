@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Period: {{ period.name }}</h2>
+<table>
+  <tr><th>Period Name</th><td>{{ period.name }}</td></tr>
+  <tr><th>Period Start Date</th><td>{{ period.start }}</td></tr>
+  <tr><th>Period Description</th><td>{{ period.description }}</td></tr>
+</table>
+{% endblock %}

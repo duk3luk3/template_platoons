@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<p>This is the platoon overview. Choose a category!</p>
+<h2>By period</h2>
+<table>
+	<tr><th>Period</th><th>Period Start</th><th>Description</th></tr>
+	{% for period in periods %}
+        <tr><td><a href="{% url 'uo_template_platoons.views.period' periodname=period.name %}">{{ period.name }}</a></td><td>{{ period.start.year }}</td><td>{{ period.description }}</td></tr>
+	{% endfor %}
+</table>
+{% endblock %}
