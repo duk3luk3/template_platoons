@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Branch: {{ branch.name }}</h2>
+<table>
+  <tr><th>Branch Name</th><td>{{ branch.name }}</td></tr>
+  <tr><th>Branch Description</th><td>{{ branch.description }}</td></tr>
+</table>
+{% endblock %}

@@ -5,7 +5,7 @@ from uo_template_platoons.models import Platoon, Army, Branch, Section, Unit, Pe
 # Register your models here.
 
 class SectionInline(admin.StackedInline):
-  model = Section
+  model = Platoon.sections.through
   extra = 3
 
 class PlatoonAdmin(admin.ModelAdmin):

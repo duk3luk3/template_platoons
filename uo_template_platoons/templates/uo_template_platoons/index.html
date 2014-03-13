@@ -9,4 +9,18 @@
         <tr><td><a href="{% url 'uo_template_platoons.views.period' periodname=period.name %}">{{ period.name }}</a></td><td>{{ period.start.year }}</td><td>{{ period.description }}</td></tr>
 	{% endfor %}
 </table>
+<h2>By Branch</h2>
+<table>
+	<tr><th>Name</th><th>Description</th></tr>
+	{% for branch in branches %}
+        <tr><td><a href="{% url 'uo_template_platoons.views.branch' branchname=branch.name %}">{{ branch.name }}</a></td><td>{{ branch.description }}</td></tr>
+	{% endfor %}
+</table>
+<h2>By Army</h2>
+<table>
+  <tr><th>Name</th><th>Side</th><th>Description</th></tr>
+	{% for army in armies %}
+        <tr><td><a href="{% url 'uo_template_platoons.views.army' armyname=army.name %}">{{ army.name }}</a></td><td>{{ army.get_side_display }}</td><td>{{ army.description }}</td></tr>
+	{% endfor %}
+</table>
 {% endblock %}

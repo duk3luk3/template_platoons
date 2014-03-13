@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Army: {{ army.name }}</h2>
+<table>
+  <tr><th>Army Name</th><td>{{ army.name }}</td></tr>
+  <tr><th>Army Side</th><td>{{ army.get_side_display }}</td></tr>
+  <tr><th>Army Description</th><td>{{ army.description }}</td></tr>
+</table>
+{% endblock %}
