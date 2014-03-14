@@ -1,7 +1,8 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="style.css" />
+<link rel="stylesheet" href="{% static "style.css" %}" />
     <title>{% block title %}My amazing site{% endblock %}</title>
 </head>
 
@@ -10,13 +11,21 @@
         {% block sidebar %}
         <ul>
             <li><a href="/">Home</a></li>
-            <li><a href="/platoons/">Platoons</a></li>
+            <li><a href="{% url 'uo_template_platoons.views.index' %}">Platoons</a></li>
         </ul>
+        <div id="auth_bar">
+          {% if user.is_authenticated %}
+          Hello, {{ user.username }}. <a href="{% url 'template_platoons.views.logout_view' %}">Log out</a>
+          {% else %}
+          You are not logged in. <a href="{% url 'template_platoons.views.login_view' %}">Log in</a>
+          {% endif %}
+        </div>
         {% endblock %}
     </div>
 
     <div id="content">
         {% block content %}{% endblock %}
     </div>
+
 </body>
 </html>

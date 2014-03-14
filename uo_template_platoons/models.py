@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class Period(models.Model):
-  name = models.CharField(max_length = 1024)
+  name = models.CharField(max_length = 1024, primary_key=True)
   description = models.TextField()
   start = models.DateField()
   owner = models.ForeignKey(User)

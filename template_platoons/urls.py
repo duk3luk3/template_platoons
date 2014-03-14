@@ -11,5 +11,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^platoons/', include('uo_template_platoons.urls')),
     url(r'^accounts/', include('registration.backends.simple.urls')),
-    url(r'^users/(?P<username>\w+)$', 'template_platoons.views.user')
+    url(r'^users/(?P<username>\w+)$', 'template_platoons.views.user'),
+    url(r'^login/$', 'template_platoons.views.login_view'),
+    url(r'^logout/$', 'template_platoons.views.logout_view')
 )
