@@ -11,10 +11,14 @@
 
 #sidebar a { display: block; line-height: 1em; text-decoration: none; }
 
-  #sidebar > ul { *display: inline-block; }
+#sidebar > ul { *display: inline-block; }
 
-    #sidebar:after, #sidebar ul:after {
-	        content: '';
-		    display: block;
-		        clear: both; 
-		}
+#sidebar:after, #sidebar ul:after {
+  content: '';
+  display: block;
+  clear: both; 
+}
+
+td {
+  text-align: left;
+}

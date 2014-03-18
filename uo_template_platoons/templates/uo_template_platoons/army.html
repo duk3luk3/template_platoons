@@ -2,6 +2,7 @@
 
 {% block content %}
 <h2>Army: {{ army.name }}</h2>
+Owned by <a href="{% url 'template_platoons.views.user' username=army.owner.username %}">{{ army.owner.username }}</a>
 <table>
   <tr><th>Army Name</th><td>{{ army.name }}</td></tr>
   <tr><th>Army Side</th><td>{{ army.get_side_display }}</td></tr>

@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from uo_template_platoons.models import Period, Army, Branch
 from uo_template_platoons.forms import PeriodForm, ArmyForm, BranchForm, SectionForm, UnitForm
 from django.http import HttpResponse
@@ -27,17 +27,18 @@ def period_edit(request, periodname=None):
       m = form.save(commit=False)
       m.owner = request.user
       m.save()
-      return period_view(request, m.periodname)
+      return redirect('uo_template_platoons.views.period_view', periodname=m.name)
   else:
     try:
       period = Period.objects.get(name=periodname)
+      form = PeriodForm(instance=period)
     except:
       period = None
+      form = PeriodForm()
 
     if period is not None and request.user != period.owner:
       return HttpResponse("Sorry, you can only edit things you own.")
 
-    form = PeriodForm(period)
 
   context = {'form': form}
 

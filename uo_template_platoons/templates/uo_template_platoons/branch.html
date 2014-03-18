@@ -2,6 +2,7 @@
 
 {% block content %}
 <h2>Branch: {{ branch.name }}</h2>
+Owned by <a href="{% url 'template_platoons.views.user' username=branch.owner.username %}">{{ branch.owner.username }}</a>
 <table>
   <tr><th>Branch Name</th><td>{{ branch.name }}</td></tr>
   <tr><th>Branch Description</th><td>{{ branch.description }}</td></tr>

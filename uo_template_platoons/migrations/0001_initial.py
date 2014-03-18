@@ -11,7 +11,7 @@ class Migration(SchemaMigration):
         # Adding model 'Period'
         db.create_table('uo_template_platoons_period', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=1024)),
+            ('name', self.gf('django.db.models.fields.CharField')(max_length=1024, unique=True)),
             ('description', self.gf('django.db.models.fields.TextField')()),
             ('start', self.gf('django.db.models.fields.DateField')()),
             ('owner', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
@@ -30,7 +30,7 @@ class Migration(SchemaMigration):
         # Adding model 'Branch'
         db.create_table('uo_template_platoons_branch', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=1024)),
+            ('name', self.gf('django.db.models.fields.CharField')(max_length=1024, unique=True)),
             ('description', self.gf('django.db.models.fields.TextField')()),
             ('owner', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
         ))
@@ -114,10 +114,10 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'Group'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '80', 'unique': 'True'}),
-            'permissions': ('django.db.models.fields.related.ManyToManyField', [], {'blank': 'True', 'to': "orm['auth.Permission']", 'symmetrical': 'False'})
+            'permissions': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'blank': 'True', 'to': "orm['auth.Permission']"})
         },
         'auth.permission': {
-            'Meta': {'ordering': "('content_type__app_label', 'content_type__model', 'codename')", 'unique_together': "(('content_type', 'codename'),)", 'object_name': 'Permission'},
+            'Meta': {'object_name': 'Permission', 'ordering': "('content_type__app_label', 'content_type__model', 'codename')", 'unique_together': "(('content_type', 'codename'),)"},
             'codename': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['contenttypes.ContentType']"}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
@@ -126,21 +126,21 @@ class Migration(SchemaMigration):
         'auth.user': {
             'Meta': {'object_name': 'User'},
             'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'email': ('django.db.models.fields.EmailField', [], {'blank': 'True', 'max_length': '75'}),
-            'first_name': ('django.db.models.fields.CharField', [], {'blank': 'True', 'max_length': '30'}),
-            'groups': ('django.db.models.fields.related.ManyToManyField', [], {'blank': 'True', 'to': "orm['auth.Group']", 'symmetrical': 'False', 'related_name': "'user_set'"}),
+            'email': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'blank': 'True'}),
+            'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
+            'groups': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'user_set'", 'symmetrical': 'False', 'blank': 'True', 'to': "orm['auth.Group']"}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
             'is_staff': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'is_superuser': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'last_login': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'last_name': ('django.db.models.fields.CharField', [], {'blank': 'True', 'max_length': '30'}),
+            'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
             'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
-            'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'blank': 'True', 'to': "orm['auth.Permission']", 'symmetrical': 'False', 'related_name': "'user_set'"}),
+            'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'user_set'", 'symmetrical': 'False', 'blank': 'True', 'to': "orm['auth.Permission']"}),
             'username': ('django.db.models.fields.CharField', [], {'max_length': '30', 'unique': 'True'})
         },
         'contenttypes.contenttype': {
-            'Meta': {'ordering': "('name',)", 'unique_together': "(('app_label', 'model'),)", 'db_table': "'django_content_type'", 'object_name': 'ContentType'},
+            'Meta': {'object_name': 'ContentType', 'ordering': "('name',)", 'unique_together': "(('app_label', 'model'),)", 'db_table': "'django_content_type'"},
             'app_label': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
@@ -157,14 +157,14 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'Branch'},
             'description': ('django.db.models.fields.TextField', [], {}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '1024'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '1024', 'unique': 'True'}),
             'owner': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']"})
         },
         'uo_template_platoons.period': {
             'Meta': {'object_name': 'Period'},
             'description': ('django.db.models.fields.TextField', [], {}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '1024'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '1024', 'unique': 'True'}),
             'owner': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']"}),
             'start': ('django.db.models.fields.DateField', [], {})
         },
@@ -176,7 +176,7 @@ class Migration(SchemaMigration):
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'owner': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']"}),
             'period': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['uo_template_platoons.Period']"}),
-            'sections': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['uo_template_platoons.Section']", 'symmetrical': 'False', 'through': "orm['uo_template_platoons.SectionDeployment']"}),
+            'sections': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'through': "orm['uo_template_platoons.SectionDeployment']", 'to': "orm['uo_template_platoons.Section']"}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '1024'})
         },
         'uo_template_platoons.section': {
@@ -184,7 +184,7 @@ class Migration(SchemaMigration):
             'description': ('django.db.models.fields.TextField', [], {}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '1024'}),
-            'units': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['uo_template_platoons.Unit']", 'symmetrical': 'False', 'through': "orm['uo_template_platoons.UnitDeployment']"})
+            'units': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'through': "orm['uo_template_platoons.UnitDeployment']", 'to': "orm['uo_template_platoons.Unit']"})
         },
         'uo_template_platoons.sectiondeployment': {
             'Meta': {'object_name': 'SectionDeployment'},

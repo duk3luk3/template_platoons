@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class Period(models.Model):
-  name = models.CharField(max_length = 1024, primary_key=True)
+  name = models.CharField(max_length=1024, unique=True)
   description = models.TextField()
   start = models.DateField()
   owner = models.ForeignKey(User)
@@ -22,10 +22,16 @@ class Army(models.Model):
   name = models.CharField(max_length=1024)
   owner = models.ForeignKey(User)
 
+  class Meta:
+    verbose_name_plural = 'armies'
+
 class Branch(models.Model):
-  name = models.CharField(max_length=1024)
+  name = models.CharField(max_length=1024, unique=True)
   description = models.TextField()
   owner = models.ForeignKey(User)
+
+  class Meta:
+    verbose_name_plural = 'branches'
 
 class Platoon(models.Model):
   title = models.CharField(max_length=1024)

@@ -6,7 +6,7 @@
 <table>
 	<tr><th>Period</th><th>Period Start</th><th>Description</th></tr>
 	{% for period in periods %}
-        <tr><td><a href="{% url 'uo_template_platoons.views.period_view' periodname=period.name %}">{{ period.name }}</a></td><td>{{ period.start.year }}</td><td>{{ period.description }}</td></tr>
+        <tr><td><a href="{% url 'uo_template_platoons.views.period_view' periodname=period.name %}">{{ period.name }}</a></td><td>{{ period.start.year }}</td><td>{{ period.description }}</td><td><a href="{% url 'uo_template_platoons.views.period_edit' periodname=period.name %}">[Edit]</a></td></tr>
 	{% endfor %}
 </table>
 {% if user.is_authenticated %}

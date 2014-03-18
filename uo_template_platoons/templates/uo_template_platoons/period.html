@@ -2,6 +2,7 @@
 
 {% block content %}
 <h2>Period: {{ period.name }}</h2>
+Owned by <a href="{% url 'template_platoons.views.user' username=period.owner.username %}">{{ period.owner.username }}</a>
 <table>
   <tr><th>Period Name</th><td>{{ period.name }}</td></tr>
   <tr><th>Period Start Date</th><td>{{ period.start }}</td></tr>
