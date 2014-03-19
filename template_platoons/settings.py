@@ -58,6 +58,8 @@ ROOT_URLCONF = 'template_platoons.urls'
 
 WSGI_APPLICATION = 'template_platoons.wsgi.application'
 
+LOGIN_REDIRECT_URL = '/'
+
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases

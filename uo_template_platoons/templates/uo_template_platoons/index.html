@@ -6,7 +6,15 @@
 <table>
 	<tr><th>Period</th><th>Period Start</th><th>Description</th></tr>
 	{% for period in periods %}
-        <tr><td><a href="{% url 'uo_template_platoons.views.period_view' periodname=period.name %}">{{ period.name }}</a></td><td>{{ period.start.year }}</td><td>{{ period.description }}</td><td><a href="{% url 'uo_template_platoons.views.period_edit' periodname=period.name %}">[Edit]</a></td></tr>
+        <tr>
+		<td><a href="{% url 'uo_template_platoons.views.period' periodname=period.name %}">{{ period.name }}</a></td>
+		<td>{{ period.start.year }}</td>
+		<td>{{ period.description }}</td>
+{% if user.is_authenticated %}
+		<td><a href="{% url 'uo_template_platoons.views.edit_period' pk=period.id %}" >Edit</a></td>
+		<td><a href="{% url 'uo_template_platoons.views.delete_period' pk=period.id %}" >Delete</a></td>
+{% endif %}
+</tr>
 	{% endfor %}
 </table>
 {% if user.is_authenticated %}
@@ -16,14 +24,34 @@
 <table>
 	<tr><th>Name</th><th>Description</th></tr>
 	{% for branch in branches %}
-        <tr><td><a href="{% url 'uo_template_platoons.views.branch' branchname=branch.name %}">{{ branch.name }}</a></td><td>{{ branch.description }}</td></tr>
+        <tr>
+		<td><a href="{% url 'uo_template_platoons.views.branch' branchname=branch.name %}">{{ branch.name }}</a></td>
+		<td>{{ branch.description }}</td>
+{% if user.is_authenticated %}
+		<td><a href="{% url 'uo_template_platoons.views.edit_branch' pk=branch.id %}" >Edit</a></td>
+		<td><a href="{% url 'uo_template_platoons.views.delete_branch' pk=branch.id %}" >Delete</a></td>
+{% endif %}
+</tr>
 	{% endfor %}
 </table>
+{% if user.is_authenticated %}
+<p><a href="{% url 'uo_template_platoons.views.new_branch' %}">Create New Branch</a></p>
+{% endif %}
 <h2>By Army</h2>
 <table>
-  <tr><th>Name</th><th>Side</th><th>Description</th></tr>
+  <tr><th>Name</th><th>Side</th></tr>
 	{% for army in armies %}
-        <tr><td><a href="{% url 'uo_template_platoons.views.army' armyname=army.name %}">{{ army.name }}</a></td><td>{{ army.get_side_display }}</td><td>{{ army.description }}</td></tr>
+        <tr>
+		<td><a href="{% url 'uo_template_platoons.views.army' armyname=army.name %}">{{ army.name }}</a></td>
+		<td>{{ army.get_side_display }}</a></td>
+{% if user.is_authenticated %}
+<td><a href="{% url 'uo_template_platoons.views.edit_army' pk=army.id %}" >Edit</a></td>
+<td><a href="{% url 'uo_template_platoons.views.delete_army' pk=army.id %}" >Delete</a></td>
+{% endif %}
+</tr>
 	{% endfor %}
 </table>
+{% if user.is_authenticated %}
+<p><a href="{% url 'uo_template_platoons.views.new_army' %}">Create New Army</a></p>
+{% endif %}
 {% endblock %}

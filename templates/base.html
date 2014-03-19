@@ -17,7 +17,8 @@
           {% if user.is_authenticated %}
           Hello, {{ user.username }}. <a href="{% url 'django.contrib.auth.views.logout' %}">Log out</a>
           {% else %}
-          You are not logged in. <a href="{% url 'django.contrib.auth.views.login' %}">Log in</a>
+          You are not logged in. <a href="{% url 'django.contrib.auth.views.login' %}">Log in</a> <a href="{% url 'registration_register' %}">Register</a>
+
           {% endif %}
         </div>
         {% endblock %}

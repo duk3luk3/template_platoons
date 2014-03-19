@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse_lazy
 
 # Create your models here.
 
@@ -8,6 +9,12 @@ class Period(models.Model):
   description = models.TextField()
   start = models.DateField()
   owner = models.ForeignKey(User)
+  
+  def get_absolute_url(self):
+    return reverse_lazy('uo_template_platoons.views.period', args=[self.name])
+
+  def __str__(self):
+    return self.name
 
 class Army(models.Model):
   WEST = 'W'
@@ -25,6 +32,12 @@ class Army(models.Model):
   class Meta:
     verbose_name_plural = 'armies'
 
+  def __str__(self):
+    return self.name
+  
+  def get_absolute_url(self):
+    return reverse_lazy('uo_template_platoons.views.army', args=[self.name])
+
 class Branch(models.Model):
   name = models.CharField(max_length=1024, unique=True)
   description = models.TextField()
@@ -32,6 +45,12 @@ class Branch(models.Model):
 
   class Meta:
     verbose_name_plural = 'branches'
+
+  def get_absolute_url(self):
+    return reverse_lazy('uo_template_platoons.views.branch', args=[self.name])
+
+  def __str__(self):
+    return self.name
 
 class Platoon(models.Model):
   title = models.CharField(max_length=1024)
@@ -41,6 +60,9 @@ class Platoon(models.Model):
   period = models.ForeignKey(Period)
   owner = models.ForeignKey(User)
   sections = models.ManyToManyField('Section', through='SectionDeployment')
+
+  def __str__(self):
+    return self.title
 
 class SectionDeployment(models.Model):
   section = models.ForeignKey('Section')
@@ -52,6 +74,9 @@ class Section(models.Model):
   description = models.TextField()
   units = models.ManyToManyField('Unit', through='UnitDeployment')
 
+  def __str__(self):
+    return self.name
+
 class UnitDeployment(models.Model):
   unit = models.ForeignKey('Unit')
   section = models.ForeignKey(Section)
@@ -60,3 +85,6 @@ class UnitDeployment(models.Model):
 class Unit(models.Model):
   name = models.CharField(max_length=1024)
   description = models.TextField()
+
+  def __str__(self):
+    return self.name

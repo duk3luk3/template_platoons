@@ -16,7 +16,7 @@
 #sidebar:after, #sidebar ul:after {
   content: '';
   display: block;
-  clear: both; 
+  clear: right; 
 }
 
 td {
