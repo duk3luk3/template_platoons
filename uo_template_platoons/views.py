@@ -1,9 +1,21 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from uo_template_platoons.models import Period, Army, Branch
 from uo_template_platoons.forms import PeriodForm, ArmyForm, BranchForm, SectionForm, UnitForm
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.views.generic.edit import CreateView
 
 # Create your views here.
+
+class BranchCreateView(CreateView):
+  model = Branch
+  fields = ['name', 'description']
+  template_name_suffix='_create_form'
+
+  def form_valid(self, form):
+    obj = form.save(commit=False)
+    obj.owner = self.request.user
+    obj.save()
+    return HttpResponseRedirect(self.get_success_url())
 
 def index(request):
   periods = Period.objects.all()

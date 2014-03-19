@@ -15,9 +15,9 @@
         </ul>
         <div id="auth_bar">
           {% if user.is_authenticated %}
-          Hello, {{ user.username }}. <a href="{% url 'template_platoons.views.logout_view' %}">Log out</a>
+          Hello, {{ user.username }}. <a href="{% url 'django.contrib.auth.views.logout' %}">Log out</a>
           {% else %}
-          You are not logged in. <a href="{% url 'template_platoons.views.login_view' %}">Log in</a>
+          You are not logged in. <a href="{% url 'django.contrib.auth.views.login' %}">Log in</a>
           {% endif %}
         </div>
         {% endblock %}
