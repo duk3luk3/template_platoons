@@ -23,4 +23,6 @@ urlpatterns = patterns('',
     url(r'^armies/(?P<pk>\d+)/edit$', login_required(views.ArmyEditView.as_view()), name='uo_template_platoons.views.edit_army'),
     url(r'^armies/(?P<pk>\d+)/delete$', login_required(views.ArmyDeleteView.as_view()), name='uo_template_platoons.views.delete_army'),
     url(r'^armies/(?P<armyname>.+)$', views.army),
+    
+    url(r'^platoons/(?P<platoonname>.+)$', views.platoon),
     )

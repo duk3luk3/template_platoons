@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>{{ platoon.title }}</h2>
+<p>{{ platoon.description }}</p>
+<table>
+	<tr><th>Owner:</th><td>{{ platoon.owner }}</td></tr>
+	<tr><th>Period:</th><td>{{ platoon.period.name }}</td></tr>
+	<tr><th>Army:</th><td>{{ platoon.army.name }} ({{ platoon.army.get_side_display }})</td></tr>
+	<tr><th>Branch:</th><td>{{ platoon.branch.name }}</td></tr>
+</table>
+<h2>Sections</h2>
+{% for section in sections %}
+<p>{{ section.count }} times {{ section.name }}<br />
+{{ section.description }}
+<h3>Units:</h3>
+{% for unit in section.units %}
+<p>{{ unit.count }} times {{ unit.name }}: {{ unit.description }}</p>
+{% endfor %}
+</p>
+{% endfor %}
+{% endblock %}

@@ -54,4 +54,11 @@
 {% if user.is_authenticated %}
 <p><a href="{% url 'uo_template_platoons.views.new_army' %}">Create New Army</a></p>
 {% endif %}
+<h2>Platoons</h2>
+<table>
+	<tr><th>Name</th><th>Description</th></tr>
+	{% for platoon in platoons %}
+	<tr><td><a href="{% url 'uo_template_platoons.views.platoon' platoonname=platoon.title %}">{{ platoon.title }}</a></td><td>{{ platoon.description }}</td></tr>
+	{% endfor %}
+</table>
 {% endblock %}

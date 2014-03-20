@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from uo_template_platoons.models import Period, Army, Branch
+from uo_template_platoons.models import Period, Army, Branch, Platoon, Section, Unit, SectionDeployment, UnitDeployment
 from uo_template_platoons.forms import PeriodForm, ArmyForm, BranchForm, SectionForm, UnitForm
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -74,7 +74,8 @@ def index(request):
   periods = Period.objects.all()
   armies = Army.objects.all()
   branches = Branch.objects.all()
-  context = {'periods': periods, 'armies': armies, 'branches': branches }
+  platoons = Platoon.objects.all()
+  context = {'periods': periods, 'armies': armies, 'branches': branches, 'platoons': platoons }
   return render(request, 'uo_template_platoons/index.html', context)
 
 def period(request, periodname):
@@ -109,8 +110,6 @@ def period_edit(request, periodname=None):
 
   return render(request, 'uo_template_platoons/edit_period.html', context)
 
-
-
 def branch(request, branchname):
   branch = get_object_or_404(Branch, name=branchname)
   context = {'branch': branch}
@@ -120,3 +119,17 @@ def army(request, armyname):
   army = get_object_or_404(Army, name=armyname)
   context = {'army': army}
   return render(request, 'uo_template_platoons/army.html', context)
+
+def platoon(request, platoonname):
+  platoon = get_object_or_404(Platoon, title=platoonname)
+  sectiondeployments = SectionDeployment.objects.filter(platoon=platoon).all()
+
+  ud = lambda s: [{'count':ud.count, 'name':ud.unit.name,'description':ud.unit.description} for ud in UnitDeployment.objects.filter(section=s).all()]
+
+  sections = [{'count':sd.count,'name':sd.section.name,'description':sd.section.description,'units':ud(sd.section)} for sd in sectiondeployments]
+
+  context = {'platoon':platoon, 'sections':sections}
+
+  return render(request, 'uo_template_platoons/platoon.html', context)
+
+
