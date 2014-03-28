@@ -4,7 +4,9 @@ from uo_template_platoons.forms import PeriodForm, ArmyForm, BranchForm, Section
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
-
+from nested_formset import nestedformset_factory
+from uo_template_platoons import admin
+from django.forms.models import inlineformset_factory
 # Create your views here.
 
 class OwnedCreateView(CreateView):
@@ -69,6 +71,32 @@ class ArmyEditView(OwnedEditView):
 class ArmyDeleteView(OwnedDeleteView):
   model = Army
 
+class PlatoonCreateView(OwnedCreateView):
+  model = Platoon
+  fields = ['tite', 'description', 'army', 'branch','period']
+
+class PlatoonEditView(OwnedEditView):
+  model = Platoon
+  fields = ['title', 'description', 'army', 'branch','period']
+
+  def get_success_url(self):
+    return reverse_lazy('uotp.views.platoon', kwargs={'platoonname':self.object.title})
+
+class PlatoonDeleteView(OwnedDeleteView):
+  model = Platoon
+
+class AttachedSectionsEditView(UpdateView):
+  model = Platoon
+  template_name_suffix = '_edit_form'
+
+  def get_form_class(self):
+    return inlineformset_factory(
+        Platoon,
+        Platoon.sections.through
+    )
+  
+  def get_success_url(self):
+    return reverse_lazy('uotp.views.platoon', kwargs={'platoonname':self.object[0].platoon.title})
 
 def index(request):
   periods = Period.objects.all()
@@ -80,7 +108,8 @@ def index(request):
 
 def period(request, periodname):
   period = get_object_or_404(Period, name=periodname)
-  context = {'period': period}
+  platoons = Platoon.objects.filter(period=period).order_by('branch','army')
+  context = {'period': period,'platoons':platoons}
   return render(request, 'uo_template_platoons/period.html', context)
 
 def period_edit(request, periodname=None):

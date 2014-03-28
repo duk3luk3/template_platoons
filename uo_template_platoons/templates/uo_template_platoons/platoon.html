@@ -2,6 +2,9 @@
 
 {% block content %}
 <h2>{{ platoon.title }}</h2>
+{% if user.is_authenticated %}
+<p><a href="{% url 'uo_template_platoons.views.edit_platoon' pk=platoon.id %}">[Edit information section]</a></p>
+{% endif %}
 <p>{{ platoon.description }}</p>
 <table>
 	<tr><th>Owner:</th><td>{{ platoon.owner }}</td></tr>
@@ -10,13 +13,20 @@
 	<tr><th>Branch:</th><td>{{ platoon.branch.name }}</td></tr>
 </table>
 <h2>Sections</h2>
+{% if user.is_authenticated %}
+<p><a href="{% url 'uo_template_platoons.views.edit_platoonsections' pk=platoon.id %}">[Edit section deployment]</a></p>
+{% endif %}
+<table>
 {% for section in sections %}
-<p>{{ section.count }} times {{ section.name }}<br />
+<tr><td>
+{{ section.count }} times {{ section.name }}<br />
 {{ section.description }}
-<h3>Units:</h3>
+</td><td>
 {% for unit in section.units %}
-<p>{{ unit.count }} times {{ unit.name }}: {{ unit.description }}</p>
+{{ unit.count }} times {{ unit.name }}: {{ unit.description }}<br />
 {% endfor %}
-</p>
+</td>
+</tr>
 {% endfor %}
+</table>
 {% endblock %}
