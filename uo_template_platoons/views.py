@@ -4,10 +4,8 @@ from uo_template_platoons.forms import PeriodForm, ArmyForm, BranchForm, Section
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
-from nested_formset import nestedformset_factory
 from uo_template_platoons import admin
 from django.forms.models import inlineformset_factory
-# Create your views here.
 
 class OwnedCreateView(CreateView):
   template_name_suffix='_create_form'
@@ -103,7 +101,8 @@ def index(request):
   armies = Army.objects.all()
   branches = Branch.objects.all()
   platoons = Platoon.objects.all()
-  context = {'periods': periods, 'armies': armies, 'branches': branches, 'platoons': platoons }
+  sections = Section.objects.all()
+  context = {'periods': periods, 'armies': armies, 'branches': branches, 'platoons': platoons, 'sections': sections }
   return render(request, 'uo_template_platoons/index.html', context)
 
 def period(request, periodname):
