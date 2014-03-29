@@ -58,7 +58,25 @@
 <table>
 	<tr><th>Name</th><th>Description</th></tr>
 	{% for platoon in platoons %}
-	<tr><td><a href="{% url 'uo_template_platoons.views.platoon' platoonname=platoon.title %}">{{ platoon.title }}</a></td><td>{{ platoon.description }}</td></tr>
+  <tr><td><a href="{% url 'uo_template_platoons.views.platoon' platoonname=platoon.title %}">{{ platoon.title }}</a></td>
+      <td>{{ platoon.description }}</td>
+{% if user.is_authenticated %}
+      <td><a href="{% url 'uo_template_platoons.views.edit_platoon' pk=platoon.id %}">[Edit]</a></td>
+{% endif %}
+  </tr>
+	{% endfor %}
+</table>
+
+<h2>Sections</h2>
+<table>
+	<tr><th>Name</th><th>Description</th></tr>
+	{% for section in sections %}
+  <tr><td><a href="{% url 'uo_template_sections.views.section' sectionname=section.title %}">{{ section.name }}</a></td>
+      <td>{{ section.description }}</td>
+{% if user.is_authenticated %}
+      <td><a href="{% url 'uo_template_sections.views.edit_section' pk=section.id %}">[Edit]</a></td>
+{% endif %}
+  </tr>
 	{% endfor %}
 </table>
 {% endblock %}

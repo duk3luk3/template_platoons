@@ -8,4 +8,15 @@ Owned by <a href="{% url 'template_platoons.views.user' username=period.owner.us
   <tr><th>Period Start Date</th><td>{{ period.start }}</td></tr>
   <tr><th>Period Description</th><td>{{ period.description }}</td></tr>
 </table>
+<h2>Platoons</h2>
+<table>
+  <tr><th>Branch</th><th>Army</th><th>Name</th></tr>
+{% for platoon in platoons %}
+  <tr>
+    <td>{{ platoon.branch }}</td>
+    <td>{{ platoon.army }} ({{ platoon.army.get_side_display }})</td>
+    <td><a href="{% url 'uotp.views.platoon' platoonname=platoon.title %}">{{ platoon.title }}</a></td>
+  </tr>
+{% endfor %}
+</table>
 {% endblock %}
