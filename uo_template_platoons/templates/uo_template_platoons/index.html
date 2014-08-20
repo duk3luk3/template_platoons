@@ -2,7 +2,7 @@
 
 {% block content %}
 <p>This is the platoon overview. Choose a category!</p>
-<h2>By period</h2>
+<h2>By Period</h2>
 <table>
 	<tr><th>Period</th><th>Period Start</th><th>Description</th></tr>
 	{% for period in periods %}
@@ -71,10 +71,10 @@
 <table>
 	<tr><th>Name</th><th>Description</th></tr>
 	{% for section in sections %}
-  <tr><td><a href="{% url 'uo_template_sections.views.section' sectionname=section.title %}">{{ section.name }}</a></td>
+  <tr><td><a href="{% url 'uo_template_platoons.views.section' sectionname=section.name %}">{{ section.name }}</a></td>
       <td>{{ section.description }}</td>
 {% if user.is_authenticated %}
-      <td><a href="{% url 'uo_template_sections.views.edit_section' pk=section.id %}">[Edit]</a></td>
+      <td><a href="{% url 'uo_template_platoons.views.edit_section' pk=section.id %}">[Edit]</a></td>
 {% endif %}
   </tr>
 	{% endfor %}

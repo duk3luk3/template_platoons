@@ -36,6 +36,17 @@ class OwnedDeleteView(DeleteView):
     else:
       return super(OwnedDeleteView, self).dispatch(request, *args, **kwargs)
 
+class SectionCreateView(OwnedCreateView):
+  model = Section
+  fields = ['name', 'description']
+
+class SectionEditView(OwnedEditView):
+  model = Section
+  fields = ['name', 'description']
+
+class SectionDeleteView(OwnedDeleteView):
+  model = Section
+
 class PeriodCreateView(OwnedCreateView):
   model = Period
   fields = ['name', 'description', 'start']
@@ -137,6 +148,12 @@ def period_edit(request, periodname=None):
   context = {'form': form}
 
   return render(request, 'uo_template_platoons/edit_period.html', context)
+
+def section(request, sectionname):
+  section = get_object_or_404(Section, name=sectionname)
+  units = section.units.all()
+  context = {'section':section, 'units': units}
+  return render(request, 'uo_template_platoons/section.html', context)
 
 def branch(request, branchname):
   branch = get_object_or_404(Branch, name=branchname)

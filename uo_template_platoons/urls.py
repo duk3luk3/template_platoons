@@ -9,6 +9,11 @@ urlpatterns = patterns('',
     #url(r'^edit/periods/(?P<periodname>\w+)$', views.period_edit),
     #url(r'^new/periods$', views.period_edit, name='uo_template_platoons.views.new_period'),
     
+    url(r'^sections/create$', login_required(views.SectionCreateView.as_view()), name='uo_template_platoons.views.new_section'),
+    url(r'^sections/edit/(?P<pk>\d+)$', login_required(views.SectionEditView.as_view()), name='uo_template_platoons.views.edit_section'),
+    url(r'^sections/delete/(?P<pk>\d+)$', login_required(views.SectionDeleteView.as_view()), name='uo_template_platoons.views.delete_section'),
+    url(r'^sections/view/(?P<sectionname>(\w|[ .])+)$', views.section),
+    
     url(r'^branches/create$', login_required(views.BranchCreateView.as_view()), name='uo_template_platoons.views.new_branch'),
     url(r'^branches/edit/(?P<pk>\d+)$', login_required(views.BranchEditView.as_view()), name='uo_template_platoons.views.edit_branch'),
     url(r'^branches/delete/(?P<pk>\d+)$', login_required(views.BranchDeleteView.as_view()), name='uo_template_platoons.views.delete_branch'),

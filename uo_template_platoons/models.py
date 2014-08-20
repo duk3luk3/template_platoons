@@ -73,6 +73,7 @@ class Section(models.Model):
   name = models.CharField(max_length=1024)
   description = models.TextField()
   units = models.ManyToManyField('Unit', through='UnitDeployment')
+  parent = models.ForeignKey('Section', blank=True, default=None, null=True)
 
   def __str__(self):
     return self.name
